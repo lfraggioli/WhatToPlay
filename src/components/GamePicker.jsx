@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { games } from "../lib/data";
+import { juegos } from "../lib/data";
+import GameCard from "./GameCard";
+import RandomGame from "./RandomGame";
 const GamePicker = () => {
   const [game, setGame] = useState("");
-  const [gamesList, setGamesList] = useState(games);
+  const [gamesList, setGamesList] = useState(juegos);
 
   useEffect(() => {
-    setGamesList(games);
+    setGamesList(juegos);
   }, []);
 
   function getRandomGame() {
@@ -15,23 +17,17 @@ const GamePicker = () => {
 
   return (
     <>
-      <div className="flex flex-col bg-zinc-800 text-slate-100 font-semibold h-80 mx-auto px-28 py-2 rounded-lg shadow-sm my-4 overflow-auto">
-        <ul>
-          {gamesList.map((game) => (
-            <li key={game}>{game}</li>
-          ))}
-        </ul>
+      <div className="flex flex-row bg-zinc-800 text-slate-100 font-semibold py-2 rounded-lg shadow-sm my-4">
+        <GameCard />
       </div>
       <div>
         <button
-          className="bg-yellow-500 text-slate-800 font-semibold h-10 mx-auto px-28 py-2 rounded-lg shadow-sm my-4"
+          className="bg-yellow-500 hover:bg-yellow-600 transition-colors hover:text-slate-200 duration-300 text-slate-800 font-semibold h-10 mx-auto px-28 py-2 rounded-lg shadow-sm my-4"
           onClick={getRandomGame}
         >
           Decide for me
         </button>
-        {game !== "" && (
-          <h2 className="text-2xl text-center">You should play: {game}</h2>
-        )}
+        {game !== "" && <RandomGame game={game} />}
       </div>
     </>
   );
